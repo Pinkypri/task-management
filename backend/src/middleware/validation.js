@@ -46,7 +46,7 @@ const validateTask = (req, res, next) => {
     name: Joi.string().max(100).required(),
     description: Joi.string().max(500).allow(''),
     startDate: Joi.date().iso().required(),
-    endDate: Joi.date().iso().greater(Joi.ref('startDate')).required(),
+    endDate: Joi.date().iso().min(Joi.ref('startDate')).required(),
     totalTask: Joi.number().min(1).required(),
     status: Joi.string().valid('pending', 'in progress', 'completed')
   });

@@ -21,9 +21,14 @@ const taskSchema = new mongoose.Schema({
     required: [true, 'End date is required'],
     validate: {
       validator: function(value) {
-        return !this.startDate || value >= this.startDate;
+        if (!this.startDate) return true;
+        const startDate = new Date(this.startDate);
+        const endDate = new Date(value);
+        startDate.setHours(0, 0, 0, 0);
+        endDate.setHours(0, 0, 0, 0);
+        return endDate >= startDate;
       },
-      message: 'End date must be after start date'
+      message: 'End date must be same or after start date'
     }
   },
   totalTask: {

@@ -34,8 +34,14 @@ const TaskForm = ({ task, onSave, onCancel }) => {
     if (!formData.description.trim()) newErrors.description = 'Description is required';
     if (!formData.startDate) newErrors.startDate = 'Start date is required';
     if (!formData.endDate) newErrors.endDate = 'End date is required';
-    if (formData.startDate && formData.endDate && new Date(formData.endDate) < new Date(formData.startDate)) {
-      newErrors.endDate = 'End date must be same or after start date';
+    if (formData.startDate && formData.endDate) {
+      const startDate = new Date(formData.startDate);
+      const endDate = new Date(formData.endDate);
+      startDate.setHours(0, 0, 0, 0);
+      endDate.setHours(0, 0, 0, 0);
+      if (endDate < startDate) {
+        newErrors.endDate = 'End date must be same or after start date';
+      }
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
