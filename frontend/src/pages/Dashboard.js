@@ -44,13 +44,16 @@ const Dashboard = () => {
       const data = await taskAPI.getTasks(params);
       setTasks(data.data || []);
       
-      const totalPages = data.pagination?.next || data.pagination?.prev ? 
-        Math.ceil((data.count || data.total || tasks.length) / 5) : 1;
+      const hasNext = data.pagination?.next;
+      const hasPrev = data.pagination?.prev;
+      const totalPages = Math.ceil(data.count / 5);
       
       setPagination({
         page: page,
         pages: totalPages,
-        total: data.count || data.total || tasks.length
+        total: data.count,
+        hasNext: !!hasNext,
+        hasPrev: !!hasPrev
       });
     } catch (err) {
       setError(err.message);
@@ -189,6 +192,8 @@ const Dashboard = () => {
               currentPage={pagination.page}
               totalPages={pagination.pages}
               totalItems={pagination.total}
+              hasNext={pagination.hasNext}
+              hasPrev={pagination.hasPrev}
               onPageChange={handlePageChange}
             />
           </>

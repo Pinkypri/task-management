@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from './ui/Button';
 
-const Pagination = ({ currentPage, totalPages, onPageChange, totalItems }) => {
+const Pagination = ({ currentPage, totalPages, onPageChange, totalItems, hasNext, hasPrev }) => {
   if (totalPages <= 1) return (
     <div className="pagination-simple">
       <button className="page-btn" disabled>Previous</button>
@@ -39,7 +39,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange, totalItems }) => {
           variant="secondary"
           size="sm"
           onClick={() => onPageChange(currentPage - 1)}
-          disabled={currentPage === 1}
+          disabled={!hasPrev}
         >
           Previous
         </Button>
@@ -85,7 +85,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange, totalItems }) => {
           variant="secondary"
           size="sm"
           onClick={() => onPageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
+          disabled={!hasNext}
         >
           Next
         </Button>

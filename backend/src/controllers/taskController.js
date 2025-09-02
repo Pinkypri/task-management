@@ -57,7 +57,7 @@ const getTasks = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: `Found ${tasks.length} tasks`,
-      count: tasks.length,
+      count: total,
       pagination,
       data: tasks
     });
