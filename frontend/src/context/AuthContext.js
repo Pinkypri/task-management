@@ -46,9 +46,9 @@ export const AuthProvider = ({ children }) => {
     try {
       const data = await authAPI.register(userData);
       const { token, ...userInfo } = data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(userInfo));
-      setUser(userInfo);
+      // localStorage.setItem('token', token);
+      // localStorage.setItem('user', JSON.stringify(userInfo));
+       setUser(userInfo);
       return data;
     } catch (err) {
       setError(err.message);
